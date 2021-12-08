@@ -234,7 +234,7 @@ a*b ---> grad_fn=<`MulBackward`>
 nn.Linear(x) ---> grad_fn=<`AddBackward`>  
 Those information would be helpful to understand the computational graph.
 ### Computational Graph
-This is the computational graph for the above scripts, and there are `explainations for nodes in the graph`. 
+This is the computational graph for the above scripts, and there are `explanations for nodes in the graph`. 
 <img src="https://i.imgur.com/lEmh2p4.jpg" width="800" height="1200"><br/> 
 >For other nodes that are not marked in the graph:
 '`AccumulateGrad`' represents leaf nodes, also as known as the end point of the computational graph for BP. It accumulates all backward gradient information for the leaf nodes.
