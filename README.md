@@ -142,18 +142,18 @@ d_z = []
 d_w = []
 grad_y_pred = 2.0 * (y_pred - y) #[1,1]
 grad_z_y = grad_y_pred.detach().numpy()#*ReLu_d(y_pred)#dL/dz5
-grad_w_y = grad_z_y*z_relu[-2].detach().numpy()
+grad_w_y = grad_z_y*z_relu_manual[-2])
 d_z.append(grad_z_y)
 d_w.append(grad_w_y)
 #from the last hidden layer
 for i in range (9):#i=1,2,3,4,5.... p:-4,-6,-8
-    grad_z_i = np.dot(d_z[i],ReLu_d(z[-i-2])*parameters[-(i+1)*2].detach().numpy())
+    grad_z_i = np.dot(d_z[i],ReLu_d(z_manual[-i-2])*parameters[-(i+1)*2].detach().numpy())
     d_z.append(grad_z_i)
-    grad_w_i = np.dot(grad_z_i.T,z_relu[-3-i].detach().numpy()) #-4,-5,-6
+    grad_w_i = np.dot(grad_z_i.T,z_relu_manual[-3-i])
     d_w.append(grad_w_i)
     
 #first layer
-grad_z_1 = np.dot(d_z[9],ReLu_d(z[-11])*parameters[-20].detach().numpy())
+grad_z_1 = np.dot(d_z[9],ReLu_d(z_manual[-11])*parameters[-20].detach().numpy())
 d_z.append(grad_z_1)
 grad_w_1 = np.dot(grad_z_1.T,X.detach().numpy())
 d_w.append(grad_w_1)
@@ -187,12 +187,12 @@ with open('my_autograd.dat', 'w') as f:
         i+=1
 ```
 #### 8. Compare the two files torch_autograd.dat and my_autograd.dat and show that they give the same values up to 5 significant numbers
-(1)Check autograd_weight==my_weight, autograd_bias==my_bias or not:  
-<img src="https://i.imgur.com/uHSVgqd.png" width="400" height="400"><br/> 
+(1)Check the difference between autograd_weight and my_weight, autograd_bias and my_bias or not:
+<img src="https://i.imgur.com/oDTB0py.png" width="400" height="200"><br/> 
 (2)Compare the two files:  
-<img src="https://i.imgur.com/Kletv5k.png" width="400" height="400">
-<img src="https://i.imgur.com/sXf9qle.png" width="400" height="400"><br/>   
-Therefore, autograd and my_autograd get the same values for weight and bias.
+<img src="https://i.imgur.com/CTHD7y6.png" width="400" height="400">
+<img src="https://i.imgur.com/YIPGBwh.png" width="400" height="400"><br/>   
+Therefore, most of those values are the same, autograd and my_autograd can get the same results in all.
 
 ## Question 2
 Run the following code, generate the computational graph, label and explain all nodes (all nodes means not just the leave nodes, all intermediate nodes should be explained):
