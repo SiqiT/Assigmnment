@@ -115,7 +115,6 @@ with open('torch_autograd.dat', 'w') as f:
 ```
 #### 7.Implement the forward propagation and backpropagation algorithm from scratch, without using pytorch autograd, compute the gradients using your implementation
 a. dL/dw, dL/db
-b. Print these values into a text file: my_autograd.dat
 #### Implement the forward propagation from scratch:
 ```python
 #manual forward propagation shares the same weight and bias with auto_forward
