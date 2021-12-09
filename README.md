@@ -86,16 +86,13 @@ auto_b =[]
 i = 0
 
 for param in model.parameters():
-    torch.set_printoptions(precision=5)
     if (i%2==0):
-        auto_w.append(param.grad)
+        #auto_w.append(param.grad)
+        auto_w.append(np.round(np.array(param.grad).astype(np.double),5))
     if (i%2==1):
-        auto_b.append(param.grad)
+        #auto_b.append(param.grad)
+         auto_b.append(np.round(np.array(param.grad).astype(np.double),5))
     i+=1
-# keep 5 significant numbers
-for i in range(len(auto_w)):
-    auto_w[i]= np.round(np.array(auto_w[i]).astype(np.double),5)
-    auto_b[i]= np.round(np.array(auto_b[i]).astype(np.double),5)
 ```
 b. Print these values into a text file: torch_autograd.dat
 ```python
