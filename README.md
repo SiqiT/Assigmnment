@@ -26,9 +26,9 @@ class NN1(nn.Module):
         self.layer = nn.Sequential()
         self.layer.add_module("h_1", nn.Linear(input_size, hidden_size))
         z.append(self.layer(X))
-
-        #self.layer.add_module("h_1_relu",nn.ReLU())
+        self.layer.add_module("h_1_relu",nn.ReLU())
         z_relu.append(self.layer(X))
+        
         #hidden_layers
         for i in range(K-1):
              index = str(i+2)
@@ -74,7 +74,7 @@ y_pred = model(X)
 summary(model,(1,10))
 ```
 The summary of the model:  
-<img src="https://i.imgur.com/fCa044X.png" width="400" height="400"><br/>
+<img src="https://i.imgur.com/6qyhhuK.png" width="400" height="400"><br/>
 #### 6. Compute the gradients using pytorch autograd:
 a. dL/dw, dL/db
 ```python
@@ -122,7 +122,7 @@ def feedforward(X,parameters):
     z_manual=[]
     z_relu_manual=[]
     z_manual.append(torch.from_numpy(np.dot(X.detach().numpy(),(parameters[0].detach().numpy().T))+parameters[1].detach().numpy()))
-    z_relu_manual.append(z_manual[0])
+    z_relu_manual.append(ReLu(z_manual[0]))
     
     for i in range(0,10):
         z_manual.append(torch.from_numpy(np.dot(z_relu_manual[i],(parameters[(i+1)*2].detach().numpy().T))+parameters[(i+1)*2+1].detach().numpy()))
@@ -184,10 +184,10 @@ with open('my_autograd.dat', 'w') as f:
 ```
 #### 8. Compare the two files torch_autograd.dat and my_autograd.dat and show that they give the same values up to 5 significant numbers
 (1)Check the difference between autograd_weight and my_weight, autograd_bias and my_bias or not:
-<img src="https://i.imgur.com/oDTB0py.png" width="400" height="200"><br/> 
+<img src="https://i.imgur.com/JaDBLja.png" width="400" height="200"><br/> 
 (2)Compare the two files:  
-<img src="https://i.imgur.com/CTHD7y6.png" width="400" height="400">
-<img src="https://i.imgur.com/YIPGBwh.png" width="400" height="400"><br/>   
+<img src="https://i.imgur.com/dHTjkUC.png" width="400" height="400">
+<img src="https://i.imgur.com/6iww5v1.png" width="400" height="400"><br/>   
 Therefore, most of those values are the same, autograd and my_autograd can get the same results in all.
 
 ## Question 2
